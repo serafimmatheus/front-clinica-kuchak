@@ -1,5 +1,6 @@
 import { ComponentType } from "react";
 import { Redirect, Route as ReactRoute, RouteProps } from "react-router-dom";
+import { UseLogin } from "../hook/login";
 
 interface Props extends RouteProps {
   component: ComponentType;
@@ -11,11 +12,12 @@ export const Route = ({
   component: Component,
   ...rest
 }: Props) => {
+  const { data } = UseLogin();
   return (
     <ReactRoute
       {...rest}
       render={() =>
-        isPrivate === !!localStorage.getItem("toke:kuchack") ? (
+        isPrivate === !!data.token ? (
           <Component />
         ) : (
           <Redirect to={isPrivate ? "/" : "/dashboard"} />

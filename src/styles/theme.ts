@@ -26,9 +26,13 @@ export const theme = extendTheme({
     green: {
       600: "#168821",
     },
+
+    rose: {
+      400: "#EF8C9E",
+    },
   },
   fonts: {
-    heading: "PT Serif, serif",
-    body: "Roboto Mono,  monospace",
+    heading: "Inter, Montagu Slab",
+    body: "Inter,  Montagu Slab",
   },
 });

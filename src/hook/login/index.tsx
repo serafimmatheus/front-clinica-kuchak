@@ -14,13 +14,14 @@ interface User {
 }
 
 interface AuthState {
-  accessToken: string;
+  token: string;
   user: User;
 }
 
 interface LoginProviderProps {
   data: any;
-  handleLogin: (data: any) => void;
+  handleLogin: (data: any) => Promise<void>;
+  handleSignOut: () => Promise<void>;
 }
 
 const LoginContext = createContext<LoginProviderProps>(
@@ -39,11 +40,11 @@ export const UseLogin = () => {
 
 export const LoginProvider = ({ children }: LoginChildren) => {
   const [data, setData] = useState<AuthState>(() => {
-    const accessToken = localStorage.getItem("@token:clinica-kuchak");
-    const user = localStorage.getItem("@token:clinica-kuchak");
+    const token = localStorage.getItem("@token:clinica-kuchak");
+    const user = localStorage.getItem("@user:clinica-kuchak");
 
-    if (accessToken && user) {
-      return { accessToken, user: JSON.parse(user) };
+    if (token && user) {
+      return { token, user: JSON.parse(user) };
     }
 
     return {} as AuthState;
@@ -53,10 +54,24 @@ export const LoginProvider = ({ children }: LoginChildren) => {
     const response = await api.post("/login", data);
 
     console.log(response.data);
+
+    const { token, user } = response.data;
+
+    localStorage.setItem("@token:clinica-kuchak", token);
+    localStorage.setItem("@user:clinica-kuchak", JSON.stringify(user));
+
+    setData({ token, user });
+  }, []);
+
+  const handleSignOut = useCallback(async () => {
+    localStorage.removeItem("@token:clinica-kuchak");
+    localStorage.removeItem("@user:clinica-kuchak");
+
+    setData({} as AuthState);
   }, []);
 
   return (
-    <LoginContext.Provider value={{ data, handleLogin }}>
+    <LoginContext.Provider value={{ data, handleLogin, handleSignOut }}>
       {children}
     </LoginContext.Provider>
   );
