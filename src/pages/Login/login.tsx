@@ -9,9 +9,12 @@ import { FaUserAlt } from "react-icons/fa";
 import { BiLockAlt } from "react-icons/bi";
 import { Input } from "../../components/form/input";
 import { useHistory } from "react-router-dom";
+import { useState } from "react";
 
 export const Login = () => {
   const { handleLogin } = UseLogin();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const toast = useToast();
 
@@ -31,6 +34,7 @@ export const Login = () => {
   });
 
   const login = (data: any) => {
+    setIsLoading(true);
     handleLogin(data)
       .then((_) => {
         toast({
@@ -40,6 +44,7 @@ export const Login = () => {
           duration: 9000,
           isClosable: true,
         });
+        setIsLoading(false);
 
         history.push("/dashboard");
       })
@@ -51,6 +56,7 @@ export const Login = () => {
           duration: 9000,
           isClosable: true,
         });
+        setIsLoading(false);
       });
   };
 
@@ -98,6 +104,7 @@ export const Login = () => {
           marginTop={["30px"]}
         >
           <Button
+            isLoading={isLoading}
             color={["#f4f4f4"]}
             bg={["#d87184"]}
             w={["100%"]}

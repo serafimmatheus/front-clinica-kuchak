@@ -7,11 +7,11 @@ import { ModalMenu } from "../modalMenu";
 export const Header = () => {
   const { data } = UseLogin();
 
-  const { isOpen, onToggle } = useDisclosure();
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
     <>
-      <ModalMenu isOpen={isOpen} />
+      <ModalMenu isOpen={isOpen} onClose={onClose} />
       <Flex
         w={["100%"]}
         h={["70px"]}
@@ -39,7 +39,7 @@ export const Header = () => {
           </Flex>
 
           <Flex color={"#f4f4f4"} marginLeft={"10px"} fontSize={"30px"}>
-            <FaBars onClick={onToggle} />
+            <FaBars onClick={onOpen} />
           </Flex>
         </Flex>
       </Flex>

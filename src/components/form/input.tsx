@@ -74,7 +74,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         {Icon && (
           <InputLeftElement
             color={inputVariation[variation]}
-            mt=""
+            mt="2px"
             paddingLeft="10px"
           >
             <Icon />
@@ -95,10 +95,10 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
           _hover={{ bgColor: "#9F3548", borderColor: "#500613" }}
           _placeholder={{
             color: "#500613",
-            fontSize: "12px",
-            paddingLeft: "1rem",
+            fontSize: "10px",
+            paddingLeft: "2px",
           }}
-          size="lg"
+          size="12px"
           h="40px"
           ref={ref}
         />

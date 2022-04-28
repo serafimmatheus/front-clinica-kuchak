@@ -32,7 +32,7 @@ interface ClienteProps {
   email: string;
   telefone: string;
   endereco: string;
-  is_whatsapp: boolean;
+  is_whatsapp?: boolean;
 }
 
 interface PropsModal {
@@ -65,40 +65,59 @@ export const ModalEditeCliente = ({ isOpen, onClose, cliente }: PropsModal) => {
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent as="form" onSubmit={handleSubmit(handleSubmitClientes)}>
+        <ModalContent
+          bgColor={"rgba(255, 194, 205,0.8)"}
+          as="form"
+          onSubmit={handleSubmit(handleSubmitClientes)}
+          w="90vw"
+        >
           <ModalHeader>Editar cliente</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Input
-              placeholder="Digite o nome completo..."
-              label="Nome"
-              icon={FaUserAlt}
-              {...register("nome")}
-            />
+            <Flex>
+              <Input
+                placeholder="Digite o nome completo..."
+                label="Nome"
+                icon={FaUserAlt}
+                {...register("nome")}
+                padding={["10px"]}
+              />
+              <Input
+                marginLeft={"5px"}
+                placeholder="Digite o email..."
+                label="Email"
+                icon={FiMail}
+                {...register("email")}
+                padding={["10px"]}
+              />
+            </Flex>
 
-            <Input
-              placeholder="Digite o email..."
-              label="Email"
-              icon={FiMail}
-              {...register("email")}
-            />
-            <Input
-              placeholder="Digite o CPF..."
-              label="CPF"
-              icon={BiIdCard}
-              {...register("cpf")}
-            />
-            <Input
-              placeholder="Digite o telefone..."
-              label="Telefone"
-              icon={FaPhoneAlt}
-              {...register("telefone")}
-            />
+            <Flex>
+              <Input
+                placeholder="Digite o CPF..."
+                label="CPF"
+                icon={BiIdCard}
+                {...register("cpf")}
+                padding={["10px"]}
+              />
+
+              <Input
+                marginLeft={"5px"}
+                placeholder="Digite o telefone..."
+                label="Telefone"
+                icon={FaPhoneAlt}
+                {...register("telefone")}
+                padding={["10px"]}
+              />
+            </Flex>
+
             <Input
               placeholder="Digite o endereço completo..."
               label="Endereço"
               icon={FaLocationArrow}
               {...register("endereco")}
+              padding={["10px"]}
+              w="calc(100% + 5px)"
             />
             <Flex marginTop={"10px"} flexDir={"column"}>
               <Heading marginLeft={"10px"} fontSize={"16px"}>
