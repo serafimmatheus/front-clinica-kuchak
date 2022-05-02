@@ -21,8 +21,8 @@ export const Header = () => {
       >
         <Flex w={"50%"}>
           <Image
-            borderRadius={"100%"}
-            webkit-border-radius={"100%"}
+            borderRadius={"50%"}
+            webkit-border-radius={"50%"}
             src={data.user.img_url}
           />
 
