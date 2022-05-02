@@ -1,4 +1,3 @@
-import { None } from "framer-motion";
 import {
   useCallback,
   useState,
@@ -54,6 +53,8 @@ interface DashboarProvidersProps {
     cpf_cliente: string,
     token: string
   ) => Promise<void>;
+  getClienteByCpf: (cliente_cpf: string, token: string) => Promise<void>;
+  oneCliente: ClientesProps;
 }
 
 const DashboardContext = createContext<DashboarProvidersProps>(
@@ -72,6 +73,10 @@ export const UseDashboard = () => {
 
 export const DashboardProvider = ({ children }: ChildrenProps) => {
   const [clientes, setClientes] = useState<ClientesProps[]>([]);
+
+  const [oneCliente, setOneCliente] = useState<ClientesProps>(
+    {} as ClientesProps
+  );
 
   const getClientesData = useCallback(async (token: string) => {
     const response = await api.get("/users/clientes", {
@@ -114,6 +119,19 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
     []
   );
 
+  const getClienteByCpf = useCallback(
+    async (cliente_cpf: string, token: string) => {
+      const response = await api.get(`/users/clientes/${cliente_cpf}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setOneCliente(response.data);
+    },
+    []
+  );
+
   return (
     <DashboardContext.Provider
       value={{
@@ -122,6 +140,8 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
         deleteOneCliente,
         createClientes,
         editeClientes,
+        getClienteByCpf,
+        oneCliente,
       }}
     >
       {children}

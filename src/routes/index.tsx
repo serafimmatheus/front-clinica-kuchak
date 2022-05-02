@@ -11,7 +11,7 @@ export const Routes = () => {
       <Route exact path="/dashboard" isPrivate component={Dashboard} />
       <Route
         exact
-        path="/dashboard/cliente/:id_cliente"
+        path="/dashboard/cliente/:idCliente"
         isPrivate
         component={Clientes}
       />

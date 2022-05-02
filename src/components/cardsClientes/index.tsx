@@ -5,6 +5,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { UseDashboard } from "../../hook/dashboard";
 import { UseLogin } from "../../hook/login";
 import { ModalEditeCliente } from "../modalEditClientes";
+import { useHistory } from "react-router-dom";
 
 interface ClienteProps {
   cpf: string;
@@ -41,6 +42,13 @@ export const CardsClientes = ({ cliente, openModal }: CardsClientesProps) => {
         });
       });
   };
+
+  const history = useHistory();
+
+  const profileCliente = (cpf: string) => {
+    history.push(`/dashboard/cliente/${cpf}`);
+  };
+
   return (
     <Flex
       w="45vw"
@@ -50,6 +58,7 @@ export const CardsClientes = ({ cliente, openModal }: CardsClientesProps) => {
       p="10px"
       bgColor={"rgba(255, 194, 205, 0.8)"}
       borderRadius="10px"
+      onClick={() => profileCliente(cliente.cpf)}
     >
       <Flex justifyContent={"right"}>
         <Flex marginRight={"5px"}>
