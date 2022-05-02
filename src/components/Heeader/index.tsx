@@ -20,7 +20,11 @@ export const Header = () => {
         padding={["10px 0"]}
       >
         <Flex w={"50%"}>
-          <Image borderRadius={"100%"} src={data.user.img_url} />
+          <Image
+            borderRadius={"100%"}
+            webkit-border-radius={"100%"}
+            src={data.user.img_url}
+          />
 
           <Heading
             w={"100%"}
