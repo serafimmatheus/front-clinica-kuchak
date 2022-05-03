@@ -55,6 +55,8 @@ interface DashboarProvidersProps {
   ) => Promise<void>;
   getClienteByCpf: (cliente_cpf: string, token: string) => Promise<void>;
   oneCliente: ClientesProps;
+  cats: CatsProps[];
+  dogs: DogsProps[];
 }
 
 const DashboardContext = createContext<DashboarProvidersProps>(
@@ -77,6 +79,9 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
   const [oneCliente, setOneCliente] = useState<ClientesProps>(
     {} as ClientesProps
   );
+
+  const [cats, setCats] = useState<CatsProps[]>([]);
+  const [dogs, setDogs] = useState<DogsProps[]>([]);
 
   const getClientesData = useCallback(async (token: string) => {
     const response = await api.get("/users/clientes", {
@@ -128,6 +133,8 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
       });
 
       setOneCliente(response.data);
+      setDogs(response.data.dogs);
+      setCats(response.data.cats);
     },
     []
   );
@@ -142,6 +149,8 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
         editeClientes,
         getClienteByCpf,
         oneCliente,
+        cats,
+        dogs,
       }}
     >
       {children}

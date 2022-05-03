@@ -34,7 +34,7 @@ export const ModalBackMenu = ({ isOpen, onClose }: any) => {
         <ModalOverlay />
         <ModalContent>
           <Box
-            w={"auto"}
+            w={"150px"}
             minH={"20px"}
             position={"absolute"}
             p="10px"
@@ -43,14 +43,14 @@ export const ModalBackMenu = ({ isOpen, onClose }: any) => {
             bg="#9F3548"
             rounded="md"
             shadow="md"
-            right={"0"}
-            top="0px"
+            right={"5px"}
+            top="-6px"
             zIndex={1}
           >
             <Flex
               w={"100%"}
               h="auto"
-              justifyContent={"center"}
+              justifyContent={"flex-start"}
               alignItems={"center"}
             >
               <IoMdPersonAdd />
