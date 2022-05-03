@@ -4,6 +4,8 @@ import { FcSearch } from "react-icons/fc";
 import { FaBars, FaCat, FaDog } from "react-icons/fa";
 import { ModalMenu } from "../modalMenu";
 import { ModalBackMenu } from "../modalBackMenu";
+import { ModalAddDogs } from "../modalAddDogs";
+import { ModalAddCats } from "../modalAddCats";
 
 interface DogsProps {
   id: number;
@@ -41,8 +43,22 @@ export const HeaderClientes = ({ cpf }: any) => {
 
   const { isOpen, onClose, onOpen } = useDisclosure();
 
+  const {
+    isOpen: isOpenDog,
+    onClose: onCloseDog,
+    onOpen: onOpenDog,
+  } = useDisclosure();
+
+  const {
+    isOpen: isOpenCat,
+    onClose: onCloseCat,
+    onOpen: onOpenCat,
+  } = useDisclosure();
+
   return (
     <>
+      <ModalAddDogs isOpen={isOpenDog} onClose={onCloseDog} />
+      <ModalAddCats isOpen={isOpenCat} onClose={onCloseCat} />
       <ModalBackMenu isOpen={isOpen} onClose={onClose} />
       <Flex
         w={["100%"]}
@@ -64,11 +80,11 @@ export const HeaderClientes = ({ cpf }: any) => {
 
         <Flex alignItems={"center"}>
           <Flex fontSize={"35px"} marginRight={["5px"]}>
-            <FaDog color="#f4f4f4" />
+            <FaDog onClick={onOpenDog} color="#f4f4f4" />
           </Flex>
 
           <Flex fontSize={"30px"}>
-            <FaCat color="#f4f4f4" />
+            <FaCat onClick={onOpenCat} color="#f4f4f4" />
           </Flex>
 
           <Flex color={"#f4f4f4"} marginLeft={"10px"} fontSize={"30px"}>

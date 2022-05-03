@@ -57,6 +57,10 @@ interface DashboarProvidersProps {
   oneCliente: ClientesProps;
   cats: CatsProps[];
   dogs: DogsProps[];
+  handleAddDogs: (dog: any, token: string, clienteId: string) => Promise<void>;
+  handleAddCats: (cat: any, token: string, clienteId: string) => Promise<void>;
+  handleUpdateDogs: (data: any, idDog: number, token: string) => Promise<void>;
+  handleDeleteDogs: (idDog: number, token: string) => Promise<void>;
 }
 
 const DashboardContext = createContext<DashboarProvidersProps>(
@@ -139,6 +143,54 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
     []
   );
 
+  const handleAddDogs = useCallback(
+    async (dog: any, token: string, clienteId: string) => {
+      dog["cliente_id"] = clienteId;
+      dog["is_castrado"] = !!dog["is_castrado"];
+      const response = await api.post(`/users/clientes/dogs`, dog, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    },
+    []
+  );
+
+  const handleAddCats = useCallback(
+    async (cat: any, token: string, clienteId: string) => {
+      cat["cliente_id"] = clienteId;
+      cat["is_castrado"] = !!cat["is_castrado"];
+      cat["is_testado"] = !!cat["is_testado"];
+      const response = await api.post(`/users/clientes/cats`, cat, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    },
+    []
+  );
+
+  const handleUpdateDogs = useCallback(
+    async (data: any, idDog: number, token: string) => {
+      const response = await api.patch(`/users/clientes/dogs/${idDog}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    },
+    []
+  );
+
+  const handleDeleteDogs = useCallback(async (idDog: number, token: string) => {
+    const response = await api.delete(`/users/clientes/dogs/${idDog}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const filtered = dogs.filter((elem) => elem.id != idDog);
+  }, []);
+
   return (
     <DashboardContext.Provider
       value={{
@@ -151,6 +203,10 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
         oneCliente,
         cats,
         dogs,
+        handleAddCats,
+        handleAddDogs,
+        handleDeleteDogs,
+        handleUpdateDogs,
       }}
     >
       {children}

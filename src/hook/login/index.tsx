@@ -53,8 +53,6 @@ export const LoginProvider = ({ children }: LoginChildren) => {
   const handleLogin = useCallback(async (data: any) => {
     const response = await api.post("/login", data);
 
-    console.log(response.data);
-
     const { token, user } = response.data;
 
     localStorage.setItem("@token:clinica-kuchak", token);

@@ -1,7 +1,6 @@
 import { Button, Box, Flex, Image, Heading, useToast } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-// import { useState } from "react";
 import * as yup from "yup";
 import { UseLogin } from "../../hook/login";
 import img3 from "../../assets/img3.svg";

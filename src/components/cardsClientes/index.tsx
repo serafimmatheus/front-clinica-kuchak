@@ -58,7 +58,6 @@ export const CardsClientes = ({ cliente, openModal }: CardsClientesProps) => {
       p="10px"
       bgColor={"rgba(255, 194, 205, 0.8)"}
       borderRadius="10px"
-      onClick={() => profileCliente(cliente.cpf)}
     >
       <Flex justifyContent={"right"}>
         <Flex marginRight={"5px"}>
@@ -70,7 +69,7 @@ export const CardsClientes = ({ cliente, openModal }: CardsClientesProps) => {
         </Flex>
       </Flex>
 
-      <Flex flexDir={"column"}>
+      <Flex flexDir={"column"} onClick={() => profileCliente(cliente.cpf)}>
         <Center>
           <FaUserAlt />
           <Text marginLeft={["5px"]} isTruncated wordBreak={"break-all"}>

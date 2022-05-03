@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Text, useDisclosure } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { UseDashboard } from "../../hook/dashboard";
 import { useEffect } from "react";

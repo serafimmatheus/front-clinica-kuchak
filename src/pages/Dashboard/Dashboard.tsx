@@ -50,7 +50,11 @@ export const Dashboard = () => {
                   onClose={onClose}
                   cliente={elem}
                 />
-                <CardsClientes cliente={elem} openModal={onOpen} />
+                <CardsClientes
+                  key={elem.cpf}
+                  cliente={elem}
+                  openModal={onOpen}
+                />
               </Flex>
             ))
           ) : (
