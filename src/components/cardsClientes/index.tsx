@@ -51,13 +51,15 @@ export const CardsClientes = ({ cliente, openModal }: CardsClientesProps) => {
 
   return (
     <Flex
-      w="45vw"
-      minH="80px"
+      w={["45vw", "45vw", "30vw"]}
+      minH={["80px", "100px"]}
+      h={["", "", "150px"]}
       bg="red.200"
       flexDir={"column"}
       p="10px"
       bgColor={"rgba(255, 194, 205, 0.8)"}
       borderRadius="10px"
+      justifyContent={["space-evenly"]}
     >
       <Flex justifyContent={"right"}>
         <Flex marginRight={"5px"}>

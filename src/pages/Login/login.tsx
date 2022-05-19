@@ -60,13 +60,26 @@ export const Login = () => {
   };
 
   return (
-    <Box w={"100%"} bgColor="#9F3548" h="100vh" padding={["20px"]}>
+    <Box
+      w={"100%"}
+      bgImage={img3}
+      bgRepeat={"no-repeat"}
+      bgPosition={"bottom"}
+      bgColor="#9F3548"
+      h="100vh"
+      padding={["20px"]}
+      bgSize={["100%", "50%", "40%", "30%"]}
+    >
       <Box
         as="form"
         onSubmit={handleSubmit(login)}
         padding="20px"
         border={["2px"]}
         borderColor="#EF8C9E"
+        w={["100%", "100%", "50%", "40%", "400px"]}
+        position={["relative"]}
+        left={["50%"]}
+        transform={"translateX(-50%)"}
       >
         <Heading marginBottom={["30px"]} color={["#500613"]}>
           Clinica Kuchak
@@ -114,13 +127,6 @@ export const Login = () => {
           </Button>
         </Flex>
       </Box>
-
-      <Flex position={["relative"]} top={["-30px"]} zIndex={["1"]}>
-        <Image
-          src={img3}
-          alt="https://i.pinimg.com/736x/ef/22/a6/ef22a632a46ca447cc98cf9aac036116.jpg"
-        />
-      </Flex>
     </Box>
   );
 };

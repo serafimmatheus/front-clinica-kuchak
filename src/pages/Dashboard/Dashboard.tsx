@@ -36,12 +36,17 @@ export const Dashboard = () => {
         bgImage={imgdashboard}
         bgPosition="bottom"
         bgRepeat="no-repeat"
-        bgSize={"100vw"}
+        bgSize={["100vw", "100vw", "50vw", "40vw", "30vw"]}
         flexDir={"column"}
       >
         <Header />
 
-        <Flex flexWrap={"wrap"}>
+        <Flex
+          w={["100%"]}
+          maxW={["1280px"]}
+          margin={["0 auto"]}
+          flexWrap={"wrap"}
+        >
           {clientes.length > 0 ? (
             clientes.map((elem) => (
               <Flex flexWrap={"wrap"} margin={"10px auto"}>

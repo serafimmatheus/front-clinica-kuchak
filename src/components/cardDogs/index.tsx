@@ -1,16 +1,18 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Text, useDisclosure } from "@chakra-ui/react";
 import { FaDog, FaTrash } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import { UseDashboard } from "../../hook/dashboard";
 import { UseLogin } from "../../hook/login";
 import { useParams } from "react-router-dom";
+import { ModalEditDogs } from "../modalEditDogs";
 
 interface ClienteCpfProps {
   idCliente: string;
 }
 
 export const CardDogs = ({ dogs, current }: any) => {
-  const { handleDeleteDogs, getClienteByCpf } = UseDashboard();
+  const { handleDeleteDogs, getClienteByCpf, handleUpdateDogs } =
+    UseDashboard();
   const { data } = UseLogin();
 
   const { idCliente } = useParams<ClienteCpfProps>();
@@ -22,8 +24,12 @@ export const CardDogs = ({ dogs, current }: any) => {
       })
       .then((_) => {});
   };
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <>
+      <ModalEditDogs isOpen={isOpen} onClose={onClose} dogs={dogs} />
       <Flex
         w="90%"
         flexDir={"column"}
@@ -37,7 +43,7 @@ export const CardDogs = ({ dogs, current }: any) => {
           </Flex>
 
           <Flex marginRight="10px">
-            <FiEdit />
+            <FiEdit onClick={onOpen} />
           </Flex>
         </Flex>
 
