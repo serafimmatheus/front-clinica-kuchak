@@ -17,21 +17,21 @@ export const Header = () => {
         h={["70px"]}
         bgColor={["#9F3548"]}
         justifyContent={["space-around"]}
-        padding={["10px 0"]}
+        alignItems={["center"]}
+        // padding={["10px 0"]}
       >
         <Flex w={"50%"}>
-          <Image
+          {/* <Image
             borderRadius={"50%"}
             webkit-border-radius={"50%"}
             src={data.user.img_url}
-          />
+          /> */}
 
           <Heading
             w={"100%"}
             color={["#f4f4f4"]}
             marginLeft={["10px"]}
-            fontSize={["12px"]}
-            marginTop={["10px"]}
+            fontSize={["15px"]}
           >
             {data.user.nome}
           </Heading>

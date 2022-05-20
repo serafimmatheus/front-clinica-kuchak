@@ -3,7 +3,6 @@ import { useState } from "react";
 import dogCliente from "../../assets/cliente.svg";
 import { CardDogs } from "../../components/cardDogs";
 import { UseDashboard } from "../../hook/dashboard";
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import {
   BsFillArrowLeftCircleFill,
   BsFillArrowRightCircleFill,

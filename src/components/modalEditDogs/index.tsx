@@ -15,9 +15,8 @@ import {
 } from "@chakra-ui/react";
 import { Input } from "../form/input";
 
-import { FaDog, FaPhoneAlt, FaLocationArrow } from "react-icons/fa";
+import { FaDog } from "react-icons/fa";
 import { GiDogBowl } from "react-icons/gi";
-import { FiMail } from "react-icons/fi";
 import { BiIdCard } from "react-icons/bi";
 
 import { useForm } from "react-hook-form";
@@ -41,10 +40,10 @@ interface ClienteCpfProps {
 export const ModalEditDogs = ({ isOpen, onClose, dogs }: PropsModal) => {
   const { idCliente } = useParams<ClienteCpfProps>();
 
-  const [value, setValue] = useState("true");
+  const [value, setValue] = useState("false");
 
   const { data: user_id } = UseLogin();
-  const { handleUpdateDogs } = UseDashboard();
+  const { handleUpdateDogs, getClienteByCpf } = UseDashboard();
 
   const [login, setLogin] = useState(false);
 
@@ -69,6 +68,7 @@ export const ModalEditDogs = ({ isOpen, onClose, dogs }: PropsModal) => {
       .then((_) => {
         setLogin(false);
         onClose();
+        getClienteByCpf(idCliente, user_id.token);
       })
       .catch((_) => {
         setLogin(false);
@@ -90,7 +90,8 @@ export const ModalEditDogs = ({ isOpen, onClose, dogs }: PropsModal) => {
           <ModalBody>
             <Flex>
               <Input
-                placeholder={dogs.raca}
+                placeholder="Digite a raça do doguinho..."
+                defaultValue={dogs.raca}
                 label="Raça"
                 icon={GiDogBowl}
                 {...register("raca")}
@@ -100,7 +101,8 @@ export const ModalEditDogs = ({ isOpen, onClose, dogs }: PropsModal) => {
 
               <Input
                 marginLeft={"5px"}
-                placeholder={dogs.nome}
+                placeholder="Digite o nome do doguinho..."
+                defaultValue={dogs.nome}
                 label="Nome"
                 icon={FaDog}
                 {...register("nome")}
@@ -120,7 +122,8 @@ export const ModalEditDogs = ({ isOpen, onClose, dogs }: PropsModal) => {
               />
               <Input
                 marginLeft={"5px"}
-                placeholder={dogs.pelagem}
+                placeholder="Digite a pelagem..."
+                defaultValue={dogs.pelagem}
                 label="Pelagem"
                 icon={FaDog}
                 {...register("pelagem")}
@@ -139,10 +142,11 @@ export const ModalEditDogs = ({ isOpen, onClose, dogs }: PropsModal) => {
                 value={value}
                 {...register("is_castrado")}
                 onChange={setValue}
+                defaultValue={dogs.is_castrado}
               >
                 <Stack direction="row">
-                  <Radio value="true">Sim</Radio>
-                  <Radio value="false">Não</Radio>
+                  <Radio value={"true"}>Sim</Radio>
+                  <Radio value={"false"}>Não</Radio>
                 </Stack>
               </RadioGroup>
             </Flex>

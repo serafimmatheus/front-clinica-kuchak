@@ -61,6 +61,7 @@ interface DashboarProvidersProps {
   handleAddCats: (cat: any, token: string, clienteId: string) => Promise<void>;
   handleUpdateDogs: (data: any, idDog: number, token: string) => Promise<void>;
   handleDeleteDogs: (idDog: number, token: string) => Promise<void>;
+  handleUpdatecats: (data: any, idCat: number, token: string) => Promise<void>;
 }
 
 const DashboardContext = createContext<DashboarProvidersProps>(
@@ -119,6 +120,7 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
 
   const editeClientes = useCallback(
     async (data: any, cpf_cliente: string, token: string) => {
+      data["is_whatsapp"] = !!data["is_whatsapp"];
       const response = api.patch(`/users/clientes/${cpf_cliente}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -172,6 +174,8 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
 
   const handleUpdateDogs = useCallback(
     async (data: any, idDog: number, token: string) => {
+      data["is_castrado"] = !!data["is_castrado"];
+
       const response = await api.patch(`/users/clientes/dogs/${idDog}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -191,6 +195,20 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
     const filtered = dogs.filter((elem) => elem.id != idDog);
   }, []);
 
+  const handleUpdatecats = useCallback(
+    async (data: any, idCat: number, token: string) => {
+      data["is_castrado"] = !!data["is_castrado"];
+      data["is_testado"] = !!data["is_testado"];
+
+      const response = await api.patch(`/users/clientes/cats/${idCat}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    },
+    []
+  );
+
   return (
     <DashboardContext.Provider
       value={{
@@ -207,6 +225,7 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
         handleAddDogs,
         handleDeleteDogs,
         handleUpdateDogs,
+        handleUpdatecats,
       }}
     >
       {children}

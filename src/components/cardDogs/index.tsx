@@ -19,13 +19,17 @@ export const CardDogs = ({ dogs, current }: any) => {
 
   const deleteDog = () => {
     handleDeleteDogs(dogs.id, data.token)
-      .catch((_) => {
+      .then((_) => {
         getClienteByCpf(idCliente, data.token);
       })
-      .then((_) => {});
+      .catch((_) => {});
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const newData = dogs.data_nascimento.split(" ");
+
+  const dataFormated = newData.slice(1, 4).join("/");
 
   return (
     <>
@@ -50,7 +54,7 @@ export const CardDogs = ({ dogs, current }: any) => {
         <Flex flexDir={"column"}>
           <Text>Nome: {dogs.nome}</Text>
           <Text>Raça: {dogs.raca}</Text>
-          <Text>Data de nascimento: {dogs.data_nascimento}</Text>
+          <Text>Data de nascimento: {dataFormated}</Text>
           <Text>Pelagem: {dogs.pelagem}</Text>
           <Text>Castrado: {dogs.is_castrado ? "Sim" : "Não"}</Text>
         </Flex>

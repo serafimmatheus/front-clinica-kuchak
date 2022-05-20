@@ -81,6 +81,7 @@ export const ModalEditeCliente = ({ isOpen, onClose, cliente }: PropsModal) => {
                 icon={FaUserAlt}
                 {...register("nome")}
                 padding={["10px"]}
+                defaultValue={cliente.nome}
               />
               <Input
                 marginLeft={"5px"}
@@ -89,6 +90,7 @@ export const ModalEditeCliente = ({ isOpen, onClose, cliente }: PropsModal) => {
                 icon={FiMail}
                 {...register("email")}
                 padding={["10px"]}
+                defaultValue={cliente.email}
               />
             </Flex>
 
@@ -99,6 +101,7 @@ export const ModalEditeCliente = ({ isOpen, onClose, cliente }: PropsModal) => {
                 icon={BiIdCard}
                 {...register("cpf")}
                 padding={["10px"]}
+                defaultValue={cliente.cpf}
               />
 
               <Input
@@ -108,6 +111,7 @@ export const ModalEditeCliente = ({ isOpen, onClose, cliente }: PropsModal) => {
                 icon={FaPhoneAlt}
                 {...register("telefone")}
                 padding={["10px"]}
+                defaultValue={cliente.telefone}
               />
             </Flex>
 
@@ -118,6 +122,7 @@ export const ModalEditeCliente = ({ isOpen, onClose, cliente }: PropsModal) => {
               {...register("endereco")}
               padding={["10px"]}
               w="calc(100% + 5px)"
+              defaultValue={cliente.endereco}
             />
             <Flex marginTop={"10px"} flexDir={"column"}>
               <Heading marginLeft={"10px"} fontSize={"16px"}>
@@ -129,6 +134,7 @@ export const ModalEditeCliente = ({ isOpen, onClose, cliente }: PropsModal) => {
                 value={value}
                 {...register("is_whatsapp")}
                 onChange={setValue}
+                // defaultValue={cliente.is_whatsapp}
               >
                 <Stack direction="row">
                   <Radio value="True">Sim</Radio>

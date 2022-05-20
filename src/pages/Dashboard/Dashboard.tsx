@@ -1,27 +1,14 @@
-import {
-  Text,
-  Flex,
-  Wrap,
-  WrapItem,
-  Center,
-  Box,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Text, Flex, Center } from "@chakra-ui/react";
 import { Header } from "../../components/Heeader";
 import imgdashboard from "../../assets/img-dashboard.svg";
 import { useEffect } from "react";
 import { UseDashboard } from "../../hook/dashboard";
 import { UseLogin } from "../../hook/login";
 import { CardsClientes } from "../../components/cardsClientes";
-import { FiEdit } from "react-icons/fi";
-import { FaTrash, FaUserAlt, FaWhatsapp } from "react-icons/fa";
-import { MdOutlineMailOutline } from "react-icons/md";
-import { ModalEditeCliente } from "../../components/modalEditClientes";
 
 export const Dashboard = () => {
   const { getClientesData, clientes } = UseDashboard();
   const { data } = UseLogin();
-  const { isOpen, onClose, onOpen } = useDisclosure();
 
   useEffect(() => {
     getClientesData(data.token);
@@ -50,16 +37,7 @@ export const Dashboard = () => {
           {clientes.length > 0 ? (
             clientes.map((elem) => (
               <Flex flexWrap={"wrap"} margin={"10px auto"}>
-                <ModalEditeCliente
-                  isOpen={isOpen}
-                  onClose={onClose}
-                  cliente={elem}
-                />
-                <CardsClientes
-                  key={elem.cpf}
-                  cliente={elem}
-                  openModal={onOpen}
-                />
+                <CardsClientes key={elem.cpf} cliente={elem} />
               </Flex>
             ))
           ) : (

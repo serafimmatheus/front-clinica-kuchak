@@ -28,23 +28,27 @@ import { UseLogin } from "../../hook/login";
 import { UseDashboard } from "../../hook/dashboard";
 import { useParams } from "react-router-dom";
 import { GiBubblingBowl } from "react-icons/gi";
+import { number } from "yup/lib/locale";
 
 interface PropsModal {
   isOpen: boolean;
   onClose: () => void;
+  cats: any;
 }
 
 interface ClienteCpfProps {
   idCliente: string;
 }
 
-export const ModalAddCats = ({ isOpen, onClose }: PropsModal) => {
+export const ModalEditCats = ({ isOpen, onClose, cats }: PropsModal) => {
   const { idCliente } = useParams<ClienteCpfProps>();
   const [value, setValue] = useState("true");
   const [value2, setValue2] = useState("true");
 
+  const [valueSet, setValueSet] = useState("");
+
   const { data: user_id } = UseLogin();
-  const { handleAddCats, getClienteByCpf } = UseDashboard();
+  const { handleUpdatecats, getClienteByCpf } = UseDashboard();
 
   const [login, setLogin] = useState(false);
 
@@ -67,7 +71,7 @@ export const ModalAddCats = ({ isOpen, onClose }: PropsModal) => {
 
   const handleSubmitCats = (data: any) => {
     setLogin(true);
-    handleAddCats(data, user_id.token, idCliente)
+    handleUpdatecats(data, cats.id, user_id.token)
       .then((_) => {
         getClienteByCpf(idCliente, user_id.token);
         setLogin(false);
@@ -85,6 +89,10 @@ export const ModalAddCats = ({ isOpen, onClose }: PropsModal) => {
       });
   };
 
+  const newData = cats.data_nascimento.split(" ");
+
+  const dataFormated = newData.slice(1, 4).join("/");
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -95,7 +103,7 @@ export const ModalAddCats = ({ isOpen, onClose }: PropsModal) => {
           onSubmit={handleSubmit(handleSubmitCats)}
           w="90vw"
         >
-          <ModalHeader>Adiconar Gatinho</ModalHeader>
+          <ModalHeader>Editar Gatinho</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Flex>
@@ -106,6 +114,7 @@ export const ModalAddCats = ({ isOpen, onClose }: PropsModal) => {
                 {...register("raca")}
                 p="10px"
                 error={errors}
+                defaultValue={cats.raca}
               />
 
               <Input
@@ -116,6 +125,7 @@ export const ModalAddCats = ({ isOpen, onClose }: PropsModal) => {
                 {...register("nome")}
                 p="10px"
                 error={errors}
+                defaultValue={cats.nome}
               />
             </Flex>
 
@@ -127,6 +137,7 @@ export const ModalAddCats = ({ isOpen, onClose }: PropsModal) => {
                 p="10px"
                 type={"date"}
                 error={errors}
+                defaultValue={dataFormated}
               />
               <Input
                 marginLeft={"5px"}
@@ -136,6 +147,7 @@ export const ModalAddCats = ({ isOpen, onClose }: PropsModal) => {
                 {...register("pelagem")}
                 p="10px"
                 error={errors}
+                defaultValue={cats.pelagem}
               />
             </Flex>
 
@@ -149,6 +161,7 @@ export const ModalAddCats = ({ isOpen, onClose }: PropsModal) => {
                 value={value}
                 {...register("is_castrado")}
                 onChange={setValue}
+                defaultValue={cats.is_castrado}
               >
                 <Stack direction="row">
                   <Radio value="True">Sim</Radio>
@@ -167,6 +180,7 @@ export const ModalAddCats = ({ isOpen, onClose }: PropsModal) => {
                 value={value2}
                 {...register("is_testado")}
                 onChange={setValue2}
+                defaultValue={cats.is_testado}
               >
                 <Stack direction="row">
                   <Radio value="True">Sim</Radio>
@@ -178,7 +192,7 @@ export const ModalAddCats = ({ isOpen, onClose }: PropsModal) => {
 
           <ModalFooter>
             <Button type="submit" colorScheme="blue" mr={3}>
-              Adicionar Gatinho
+              Editar Gatinho
             </Button>
           </ModalFooter>
         </ModalContent>
