@@ -4,6 +4,9 @@ import { FiEdit } from "react-icons/fi";
 import { Input } from "../form/input";
 import { ModalDescricaoPets } from "../modalDescricaoPets";
 import { MdDescription } from "react-icons/md";
+import { ModalEditVacinas } from "../modalEditVacinas";
+import { UseDashboard } from "../../hook/dashboard";
+import { UseLogin } from "../../hook/login";
 
 interface IVacinas {
   data_aplicacao: string;
@@ -16,12 +19,45 @@ interface IVacinas {
 
 interface ICardVacinas {
   vacina: IVacinas;
+  dog?: boolean;
 }
 
-export const CardVacinas = ({ vacina }: ICardVacinas) => {
+export const CardVacinas = ({ vacina, dog }: ICardVacinas) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+
+  const newData = vacina.data_aplicacao.split(" ");
+  const newData2 = vacina.data_revacinacao.split(" ");
+
+  const pet_data_aplicacao = newData.slice(1, 4).join("/");
+  const pet_data_revacinacao = newData2.slice(1, 4).join("/");
+
+  const { deleteVacinas, handleVacinaByIdCat, handleVacinaByIdPet } =
+    UseDashboard();
+  const { data } = UseLogin();
+
+  const {
+    isOpen: isOpenVacina,
+    onClose: onCloseVacina,
+    onOpen: onOpenVacina,
+  } = useDisclosure();
+
+  const handleDeletedVacinas = () => {
+    deleteVacinas(vacina.id, data.token)
+      .then(() => {
+        handleVacinaByIdCat(vacina.id, data.token);
+        handleVacinaByIdPet(vacina.id, data.token);
+      })
+      .catch(() => {});
+  };
+
   return (
     <>
+      <ModalEditVacinas
+        isOpen={isOpenVacina}
+        onClose={onCloseVacina}
+        pet={vacina}
+        dog={true}
+      />
       <ModalDescricaoPets
         isOpen={isOpen}
         onClose={onClose}
@@ -44,11 +80,11 @@ export const CardVacinas = ({ vacina }: ICardVacinas) => {
           </Flex>
 
           <Flex margin="0 10px">
-            <FiEdit size={"25px"} />
+            <FiEdit size={"25px"} onClick={onOpenVacina} />
           </Flex>
 
           <Flex>
-            <FaTrash size={"25px"} />
+            <FaTrash onClick={handleDeletedVacinas} size={"25px"} />
           </Flex>
         </Flex>
         <Input
@@ -61,13 +97,13 @@ export const CardVacinas = ({ vacina }: ICardVacinas) => {
           padding={["10px"]}
           name="data_vacinacao"
           label="Data Vacinação"
-          value={vacina.data_aplicacao}
+          value={pet_data_aplicacao}
         />
         <Input
           padding={["10px"]}
           name="data_revacinacao"
           label="Data Revacinação"
-          value={vacina.data_revacinacao}
+          value={pet_data_revacinacao}
         />
         <Input
           padding={["10px"]}

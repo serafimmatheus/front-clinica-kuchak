@@ -10,7 +10,7 @@ export const Cats = () => {
       <Flex
         as="main"
         w={["100%"]}
-        h={["calc(100vh - 70px)"]}
+        h={["auto"]}
         padding={["10px"]}
         bg={["rgb(239, 140, 158)"]}
         bgImage={img}

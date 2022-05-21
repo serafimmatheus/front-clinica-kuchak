@@ -40,7 +40,9 @@ export const Vacians = () => {
         </Flex>
         {vacinas.map(
           (elem, index) =>
-            index === current && <CardVacinas key={elem.id} vacina={elem} />
+            index === current && (
+              <CardVacinas key={elem.id} vacina={elem} dog={true} />
+            )
         )}
         <Flex position={"absolute"} top={"50%"} zIndex={1} right={"-20px"}>
           <BsFillArrowRightCircleFill

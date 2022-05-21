@@ -73,8 +73,11 @@ interface DashboarProvidersProps {
   handleUpdateDogs: (data: any, idDog: number, token: string) => Promise<void>;
   handleDeleteDogs: (idDog: number, token: string) => Promise<void>;
   handleUpdatecats: (data: any, idCat: number, token: string) => Promise<void>;
-  handleVacinaByIdPet: (id: string, token: string) => Promise<void>;
-  handleVacinaByIdCat: (id: string, token: string) => Promise<void>;
+  handleVacinaByIdPet: (id: number, token: string) => Promise<void>;
+  handleVacinaByIdCat: (id: number, token: string) => Promise<void>;
+  createVacinas: (data: any, token: string) => Promise<void>;
+  updateVacinas: (data: any, id: number, token: string) => Promise<void>;
+  deleteVacinas: (id: number, token: string) => Promise<void>;
   petsVacinas: DogsProps[];
   vacinas: IvacinasProps[];
   catsVacinas: CatsProps[];
@@ -123,7 +126,7 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
 
   const deleteOneCliente = useCallback(
     async (cpf_cliente: string, token: string) => {
-      const response = await api.delete(`/users/clientes/${cpf_cliente}`, {
+      await api.delete(`/users/clientes/${cpf_cliente}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -134,7 +137,7 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
 
   const createClientes = useCallback(async (data: any, token: string) => {
     console.log(data);
-    const response = await api.post(`/users/clientes`, data, {
+    await api.post(`/users/clientes`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -144,7 +147,7 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
   const editeClientes = useCallback(
     async (data: any, cpf_cliente: string, token: string) => {
       data["is_whatsapp"] = !!data["is_whatsapp"];
-      const response = api.patch(`/users/clientes/${cpf_cliente}`, data, {
+      await api.patch(`/users/clientes/${cpf_cliente}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -172,7 +175,7 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
     async (dog: any, token: string, clienteId: string) => {
       dog["cliente_id"] = clienteId;
       dog["is_castrado"] = !!dog["is_castrado"];
-      const response = await api.post(`/users/clientes/dogs`, dog, {
+      await api.post(`/users/clientes/dogs`, dog, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -186,7 +189,7 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
       cat["cliente_id"] = clienteId;
       cat["is_castrado"] = !!cat["is_castrado"];
       cat["is_testado"] = !!cat["is_testado"];
-      const response = await api.post(`/users/clientes/cats`, cat, {
+      await api.post(`/users/clientes/cats`, cat, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -199,7 +202,7 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
     async (data: any, idDog: number, token: string) => {
       data["is_castrado"] = !!data["is_castrado"];
 
-      const response = await api.patch(`/users/clientes/dogs/${idDog}`, data, {
+      await api.patch(`/users/clientes/dogs/${idDog}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -208,7 +211,7 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
     []
   );
 
-  const handleVacinaByIdPet = useCallback(async (id: string, token: string) => {
+  const handleVacinaByIdPet = useCallback(async (id: number, token: string) => {
     const response = await api.get(`/users/clientes/dogs/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -219,7 +222,7 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
     setVacinas(response.data.vacinas);
   }, []);
 
-  const handleVacinaByIdCat = useCallback(async (id: string, token: string) => {
+  const handleVacinaByIdCat = useCallback(async (id: number, token: string) => {
     const response = await api.get(`/users/clientes/cats/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -231,13 +234,11 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
   }, []);
 
   const handleDeleteDogs = useCallback(async (idDog: number, token: string) => {
-    const response = await api.delete(`/users/clientes/dogs/${idDog}`, {
+    await api.delete(`/users/clientes/dogs/${idDog}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-
-    const filtered = dogs.filter((elem) => elem.id != idDog);
   }, []);
 
   const handleUpdatecats = useCallback(
@@ -245,7 +246,7 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
       data["is_castrado"] = !!data["is_castrado"];
       data["is_testado"] = !!data["is_testado"];
 
-      const response = await api.patch(`/users/clientes/cats/${idCat}`, data, {
+      await api.patch(`/users/clientes/cats/${idCat}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -253,6 +254,36 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
     },
     []
   );
+
+  const createVacinas = useCallback(async (data: any, token: string) => {
+    console.log(data);
+    data["is_pupies"] = !!data["is_pupies"];
+    await api.post(`/users/clientes/pets/vacinas`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }, []);
+
+  const updateVacinas = useCallback(
+    async (data: any, id: number, token: string) => {
+      data["is_pupies"] = !!data["is_pupies"];
+      await api.patch(`/users/clientes/pets/vacinas/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    },
+    []
+  );
+
+  const deleteVacinas = useCallback(async (id: number, token: string) => {
+    await api.delete(`/users/clientes/pets/vacinas/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }, []);
 
   return (
     <DashboardContext.Provider
@@ -277,6 +308,9 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
         handleVacinaByIdCat,
         catsVacinas,
         vacinasCats,
+        createVacinas,
+        deleteVacinas,
+        updateVacinas,
       }}
     >
       {children}

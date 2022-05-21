@@ -4,6 +4,9 @@ import { FiEdit } from "react-icons/fi";
 import { Input } from "../form/input";
 import { ModalDescricaoPets } from "../modalDescricaoPets";
 import { MdDescription } from "react-icons/md";
+import { ModalEditVacinas } from "../modalEditVacinas";
+import { UseDashboard } from "../../hook/dashboard";
+import { UseLogin } from "../../hook/login";
 
 interface IVacinas {
   data_aplicacao: string;
@@ -16,12 +19,41 @@ interface IVacinas {
 
 interface ICardVacinas {
   vacina: IVacinas;
+  dog?: boolean;
 }
 
-export const CardVacinasCats = ({ vacina }: ICardVacinas) => {
+export const CardVacinasCats = ({ vacina, dog }: ICardVacinas) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+
+  const { deleteVacinas, handleVacinaByIdCat, handleVacinaByIdPet } =
+    UseDashboard();
+
+  const { data } = UseLogin();
+
+  const {
+    isOpen: isOpenVacina,
+    onClose: onCloseVacina,
+    onOpen: onOpenVacina,
+  } = useDisclosure();
+
+  const handleDeletedVacinas = () => {
+    deleteVacinas(vacina.id, data.token)
+      .then(() => {
+        if (dog) {
+          handleVacinaByIdPet(vacina.id, data.token);
+        }
+        handleVacinaByIdCat(vacina.id, data.token);
+      })
+      .catch(() => {});
+  };
   return (
     <>
+      <ModalEditVacinas
+        isOpen={isOpenVacina}
+        onClose={onCloseVacina}
+        pet={vacina}
+        dog={false}
+      />
       <ModalDescricaoPets
         isOpen={isOpen}
         onClose={onClose}
@@ -44,11 +76,11 @@ export const CardVacinasCats = ({ vacina }: ICardVacinas) => {
           </Flex>
 
           <Flex margin="0 10px">
-            <FiEdit size={"25px"} />
+            <FiEdit onClick={onOpenVacina} size={"25px"} />
           </Flex>
 
           <Flex>
-            <FaTrash size={"25px"} />
+            <FaTrash onClick={handleDeletedVacinas} size={"25px"} />
           </Flex>
         </Flex>
         <Input
