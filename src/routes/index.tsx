@@ -1,7 +1,9 @@
 import { Switch } from "react-router-dom";
+import { Cats } from "../pages/Cats";
 import { Clientes } from "../pages/Clientes";
 import { Dashboard } from "../pages/Dashboard/Dashboard";
 import { Login } from "../pages/Login/login";
+import { Pets } from "../pages/Pets";
 import { Route } from "./Route";
 
 export const Routes = () => {
@@ -15,6 +17,8 @@ export const Routes = () => {
         isPrivate
         component={Clientes}
       />
+      <Route exact path="/dashboard/pets/:idPet" isPrivate component={Pets} />
+      <Route exact path="/dashboard/cats/:idCat" isPrivate component={Cats} />
     </Switch>
   );
 };

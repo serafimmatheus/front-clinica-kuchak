@@ -49,6 +49,7 @@ export const ModalAddCliente = ({ isOpen, onClose }: PropsModal) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -57,6 +58,7 @@ export const ModalAddCliente = ({ isOpen, onClose }: PropsModal) => {
     createClientes(data, user_id.token).then((_) => {
       getClientesData(user_id.token);
       onClose();
+      reset();
     });
   };
 

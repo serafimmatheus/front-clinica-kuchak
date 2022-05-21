@@ -1,6 +1,7 @@
 import { Flex, Text, useDisclosure } from "@chakra-ui/react";
-import { FaTrash } from "react-icons/fa";
+import { FaSyringe, FaTrash } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
+import { useHistory } from "react-router-dom";
 import { ModalEditCats } from "../modalEditCats";
 
 export const CardCats = ({ cats }: any) => {
@@ -9,6 +10,8 @@ export const CardCats = ({ cats }: any) => {
   const newData = cats.data_nascimento.split(" ");
 
   const dataFormated = newData.slice(1, 4).join("/");
+
+  const history = useHistory();
   return (
     <>
       <ModalEditCats isOpen={isOpen} onClose={onClose} cats={cats} />
@@ -24,8 +27,14 @@ export const CardCats = ({ cats }: any) => {
             <FaTrash />
           </Flex>
 
-          <Flex marginRight="10px">
+          <Flex margin="0 10px">
             <FiEdit onClick={onOpen} />
+          </Flex>
+
+          <Flex>
+            <FaSyringe
+              onClick={() => history.push(`/dashboard/cats/${cats.id}`)}
+            />
           </Flex>
         </Flex>
 

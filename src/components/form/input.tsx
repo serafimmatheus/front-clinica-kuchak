@@ -24,6 +24,7 @@ interface InputProps extends ChakraInputProps {
   error?: FieldErrors | null;
   icon?: IconType;
   placeholder?: string;
+  value?: string;
 }
 
 type inputVariationOptions = {
@@ -38,7 +39,15 @@ const inputVariation: inputVariationOptions = {
 };
 
 const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
-  { error = null, name, icon: Icon, label, placeholder, ...rest },
+  {
+    error = null,
+    name,
+    value: valueInput,
+    icon: Icon,
+    label,
+    placeholder,
+    ...rest
+  },
   ref
 ) => {
   const [variation, setVariation] = useState("");
@@ -92,6 +101,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
           borderColor={inputVariation[variation]}
           bg="#9F3548"
           variant="outline"
+          value={valueInput}
           _hover={{ bgColor: "#9F3548", borderColor: "#500613" }}
           _placeholder={{
             color: "#500613",

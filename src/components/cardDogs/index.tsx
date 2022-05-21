@@ -1,9 +1,9 @@
 import { Flex, Text, useDisclosure } from "@chakra-ui/react";
-import { FaDog, FaTrash } from "react-icons/fa";
+import { FaSyringe, FaTrash } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import { UseDashboard } from "../../hook/dashboard";
 import { UseLogin } from "../../hook/login";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { ModalEditDogs } from "../modalEditDogs";
 
 interface ClienteCpfProps {
@@ -16,6 +16,8 @@ export const CardDogs = ({ dogs, current }: any) => {
   const { data } = UseLogin();
 
   const { idCliente } = useParams<ClienteCpfProps>();
+
+  const history = useHistory();
 
   const deleteDog = () => {
     handleDeleteDogs(dogs.id, data.token)
@@ -46,8 +48,14 @@ export const CardDogs = ({ dogs, current }: any) => {
             <FaTrash onClick={deleteDog} />
           </Flex>
 
-          <Flex marginRight="10px">
+          <Flex margin="0 10px">
             <FiEdit onClick={onOpen} />
+          </Flex>
+
+          <Flex>
+            <FaSyringe
+              onClick={() => history.push(`/dashboard/pets/${dogs.id}`)}
+            />
           </Flex>
         </Flex>
 
