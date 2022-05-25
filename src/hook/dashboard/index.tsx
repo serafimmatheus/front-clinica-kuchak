@@ -136,7 +136,7 @@ export const DashboardProvider = ({ children }: ChildrenProps) => {
   );
 
   const createClientes = useCallback(async (data: any, token: string) => {
-    console.log(data);
+    data["is_whatsapp"] = !!data["is_whatsapp"];
     await api.post(`/users/clientes`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
