@@ -1,4 +1,4 @@
-import { Flex, Heading } from "@chakra-ui/react";
+import { Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import {
   BsFillArrowLeftCircleFill,
@@ -34,24 +34,30 @@ export const VaciansCats = () => {
     >
       <Heading>Vacinas tomadas</Heading>
 
-      <Flex>
-        <Flex position={"absolute"} top={"50%"} zIndex={1} left={"-20px"}>
-          <BsFillArrowLeftCircleFill size={"30px"} onClick={backCard} />
+      {vacinasLength > 0 ? (
+        <Flex>
+          <Flex position={"absolute"} top={"50%"} zIndex={1} left={"-20px"}>
+            <BsFillArrowLeftCircleFill size={"30px"} onClick={backCard} />
+          </Flex>
+          {vacinasCats.map(
+            (elem, index) =>
+              index === current && (
+                <CardVacinasCats key={elem.id} vacina={elem} dog={false} />
+              )
+          )}
+          <Flex position={"absolute"} top={"50%"} zIndex={1} right={"-20px"}>
+            <BsFillArrowRightCircleFill
+              z={"2"}
+              size={"30px"}
+              onClick={nextCard}
+            />
+          </Flex>
         </Flex>
-        {vacinasCats.map(
-          (elem, index) =>
-            index === current && (
-              <CardVacinasCats key={elem.id} vacina={elem} dog={false} />
-            )
-        )}
-        <Flex position={"absolute"} top={"50%"} zIndex={1} right={"-20px"}>
-          <BsFillArrowRightCircleFill
-            z={"2"}
-            size={"30px"}
-            onClick={nextCard}
-          />
+      ) : (
+        <Flex h={["327px"]}>
+          <Text>Esse pet nao possui vacinas ainda.</Text>
         </Flex>
-      </Flex>
+      )}
     </Flex>
   );
 };

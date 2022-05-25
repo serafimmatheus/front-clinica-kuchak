@@ -1,7 +1,8 @@
 import { Flex, Heading, useDisclosure } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { BiAddToQueue } from "react-icons/bi";
-import { useParams } from "react-router-dom";
+import { BsArrowLeftSquare } from "react-icons/bs";
+import { useHistory, useParams } from "react-router-dom";
 import { UseDashboard } from "../../hook/dashboard";
 import { UseLogin } from "../../hook/login";
 import { ModalAddVacinas } from "../modalAddVacinas";
@@ -25,6 +26,8 @@ export const CardVacinasPets = () => {
 
   const { isOpen, onClose, onOpen } = useDisclosure();
 
+  const history = useHistory();
+
   return (
     <>
       <ModalAddVacinas
@@ -40,7 +43,10 @@ export const CardVacinasPets = () => {
         flexDir={["column"]}
         alignItems={"center"}
       >
-        <Flex>
+        <Flex pos={"relative"}>
+          <Flex pos={"absolute"} left={"-100px"} top={"10px"}>
+            <BsArrowLeftSquare size={"20px"} onClick={() => history.goBack()} />
+          </Flex>
           <BiAddToQueue onClick={onOpen} />
           <Heading>Vacinas</Heading>
         </Flex>
