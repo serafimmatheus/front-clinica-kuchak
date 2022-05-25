@@ -7,6 +7,8 @@ import { MdDescription } from "react-icons/md";
 import { ModalEditVacinas } from "../modalEditVacinas";
 import { UseDashboard } from "../../hook/dashboard";
 import { UseLogin } from "../../hook/login";
+import { useParams } from "react-router-dom";
+import { functionDataFormatedPTBR } from "../../utils";
 
 interface IVacinas {
   data_aplicacao: string;
@@ -25,14 +27,9 @@ interface ICardVacinas {
 export const CardVacinas = ({ vacina, dog }: ICardVacinas) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const newData = vacina.data_aplicacao.split(" ");
-  const newData2 = vacina.data_revacinacao.split(" ");
+  const { idPet } = useParams<any>();
 
-  const pet_data_aplicacao = newData.slice(1, 4).join("/");
-  const pet_data_revacinacao = newData2.slice(1, 4).join("/");
-
-  const { deleteVacinas, handleVacinaByIdCat, handleVacinaByIdPet } =
-    UseDashboard();
+  const { deleteVacinas, handleVacinaByIdPet } = UseDashboard();
   const { data } = UseLogin();
 
   const {
@@ -44,8 +41,7 @@ export const CardVacinas = ({ vacina, dog }: ICardVacinas) => {
   const handleDeletedVacinas = () => {
     deleteVacinas(vacina.id, data.token)
       .then(() => {
-        handleVacinaByIdCat(vacina.id, data.token);
-        handleVacinaByIdPet(vacina.id, data.token);
+        handleVacinaByIdPet(idPet, data.token);
       })
       .catch(() => {});
   };
@@ -56,6 +52,7 @@ export const CardVacinas = ({ vacina, dog }: ICardVacinas) => {
         isOpen={isOpenVacina}
         onClose={onCloseVacina}
         pet={vacina}
+        idPet={idPet}
         dog={true}
       />
       <ModalDescricaoPets
@@ -97,13 +94,13 @@ export const CardVacinas = ({ vacina, dog }: ICardVacinas) => {
           padding={["10px"]}
           name="data_vacinacao"
           label="Data Vacinação"
-          value={pet_data_aplicacao}
+          value={functionDataFormatedPTBR(vacina.data_aplicacao)}
         />
         <Input
           padding={["10px"]}
           name="data_revacinacao"
           label="Data Revacinação"
-          value={pet_data_revacinacao}
+          value={functionDataFormatedPTBR(vacina.data_revacinacao)}
         />
         <Input
           padding={["10px"]}

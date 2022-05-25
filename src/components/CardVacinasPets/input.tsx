@@ -2,9 +2,6 @@ import { Flex } from "@chakra-ui/react";
 import { Input } from "../form/input";
 
 export const InputVacinas = ({ petsVacinas }: any) => {
-  // const newData = petsVacinas.data_nascimento.split(" ");
-  // const pet_data_nascimento = newData.slice(1, 4).join("/");
-
   return (
     <Flex flexDir={["column"]} padding={["10px"]}>
       <Flex>

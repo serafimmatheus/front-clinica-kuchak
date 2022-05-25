@@ -16,8 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { Input } from "../form/input";
 
-import { FaCat, FaPhoneAlt, FaLocationArrow } from "react-icons/fa";
-import { FiMail } from "react-icons/fi";
+import { FaCat } from "react-icons/fa";
 import { BiIdCard } from "react-icons/bi";
 
 import { useForm } from "react-hook-form";
@@ -28,7 +27,7 @@ import { UseLogin } from "../../hook/login";
 import { UseDashboard } from "../../hook/dashboard";
 import { useParams } from "react-router-dom";
 import { GiBubblingBowl } from "react-icons/gi";
-import { number } from "yup/lib/locale";
+import { functionDataFormated } from "../../utils";
 
 interface PropsModal {
   isOpen: boolean;
@@ -42,10 +41,8 @@ interface ClienteCpfProps {
 
 export const ModalEditCats = ({ isOpen, onClose, cats }: PropsModal) => {
   const { idCliente } = useParams<ClienteCpfProps>();
-  const [value, setValue] = useState("true");
-  const [value2, setValue2] = useState("true");
-
-  const [valueSet, setValueSet] = useState("");
+  const [value, setValue] = useState("false");
+  const [value2, setValue2] = useState("false");
 
   const { data: user_id } = UseLogin();
   const { handleUpdatecats, getClienteByCpf } = UseDashboard();
@@ -88,10 +85,6 @@ export const ModalEditCats = ({ isOpen, onClose, cats }: PropsModal) => {
         });
       });
   };
-
-  const newData = cats.data_nascimento.split(" ");
-
-  const dataFormated = newData.slice(1, 4).join("/");
 
   return (
     <>
@@ -137,7 +130,7 @@ export const ModalEditCats = ({ isOpen, onClose, cats }: PropsModal) => {
                 p="10px"
                 type={"date"}
                 error={errors}
-                defaultValue={dataFormated}
+                defaultValue={functionDataFormated(cats.data_nascimento)}
               />
               <Input
                 marginLeft={"5px"}
@@ -164,8 +157,8 @@ export const ModalEditCats = ({ isOpen, onClose, cats }: PropsModal) => {
                 defaultValue={cats.is_castrado}
               >
                 <Stack direction="row">
-                  <Radio value="True">Sim</Radio>
-                  <Radio value="False">Não</Radio>
+                  <Radio value="true">Sim</Radio>
+                  <Radio value="false">Não</Radio>
                 </Stack>
               </RadioGroup>
             </Flex>
@@ -183,8 +176,8 @@ export const ModalEditCats = ({ isOpen, onClose, cats }: PropsModal) => {
                 defaultValue={cats.is_testado}
               >
                 <Stack direction="row">
-                  <Radio value="True">Sim</Radio>
-                  <Radio value="False">Não</Radio>
+                  <Radio value="true">Sim</Radio>
+                  <Radio value="false">Não</Radio>
                 </Stack>
               </RadioGroup>
             </Flex>

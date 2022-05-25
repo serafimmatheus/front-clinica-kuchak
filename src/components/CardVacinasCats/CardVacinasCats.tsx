@@ -7,6 +7,8 @@ import { MdDescription } from "react-icons/md";
 import { ModalEditVacinas } from "../modalEditVacinas";
 import { UseDashboard } from "../../hook/dashboard";
 import { UseLogin } from "../../hook/login";
+import { useParams } from "react-router-dom";
+import { functionDataFormatedPTBR } from "../../utils";
 
 interface IVacinas {
   data_aplicacao: string;
@@ -25,10 +27,11 @@ interface ICardVacinas {
 export const CardVacinasCats = ({ vacina, dog }: ICardVacinas) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const { deleteVacinas, handleVacinaByIdCat, handleVacinaByIdPet } =
-    UseDashboard();
+  const { deleteVacinas, handleVacinaByIdCat } = UseDashboard();
 
   const { data } = UseLogin();
+
+  const { idCat } = useParams<any>();
 
   const {
     isOpen: isOpenVacina,
@@ -39,10 +42,7 @@ export const CardVacinasCats = ({ vacina, dog }: ICardVacinas) => {
   const handleDeletedVacinas = () => {
     deleteVacinas(vacina.id, data.token)
       .then(() => {
-        if (dog) {
-          handleVacinaByIdPet(vacina.id, data.token);
-        }
-        handleVacinaByIdCat(vacina.id, data.token);
+        handleVacinaByIdCat(idCat, data.token);
       })
       .catch(() => {});
   };
@@ -52,6 +52,7 @@ export const CardVacinasCats = ({ vacina, dog }: ICardVacinas) => {
         isOpen={isOpenVacina}
         onClose={onCloseVacina}
         pet={vacina}
+        idPet={idCat}
         dog={false}
       />
       <ModalDescricaoPets
@@ -93,13 +94,13 @@ export const CardVacinasCats = ({ vacina, dog }: ICardVacinas) => {
           padding={["10px"]}
           name="data_vacinacao"
           label="Data Vacinação"
-          value={vacina.data_aplicacao}
+          value={functionDataFormatedPTBR(vacina.data_aplicacao)}
         />
         <Input
           padding={["10px"]}
           name="data_revacinacao"
           label="Data Revacinação"
-          value={vacina.data_revacinacao}
+          value={functionDataFormatedPTBR(vacina.data_revacinacao)}
         />
         <Input
           padding={["10px"]}

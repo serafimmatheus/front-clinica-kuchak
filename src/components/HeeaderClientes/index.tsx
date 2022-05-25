@@ -1,8 +1,6 @@
-import { Flex, Heading, Image, useDisclosure } from "@chakra-ui/react";
+import { Flex, Heading, useDisclosure } from "@chakra-ui/react";
 import { UseLogin } from "../../hook/login";
-import { FcSearch } from "react-icons/fc";
 import { FaBars, FaCat, FaDog } from "react-icons/fa";
-import { ModalMenu } from "../modalMenu";
 import { ModalBackMenu } from "../modalBackMenu";
 import { ModalAddDogs } from "../modalAddDogs";
 import { ModalAddCats } from "../modalAddCats";
@@ -39,8 +37,6 @@ interface ClientesProps {
 }
 
 export const HeaderClientes = ({ cpf }: any) => {
-  const { data } = UseLogin();
-
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const {

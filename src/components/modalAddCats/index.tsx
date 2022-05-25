@@ -16,8 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { Input } from "../form/input";
 
-import { FaCat, FaPhoneAlt, FaLocationArrow } from "react-icons/fa";
-import { FiMail } from "react-icons/fi";
+import { FaCat } from "react-icons/fa";
 import { BiIdCard } from "react-icons/bi";
 
 import { useForm } from "react-hook-form";

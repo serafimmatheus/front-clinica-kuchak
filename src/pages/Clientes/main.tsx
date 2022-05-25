@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Text, Heading } from "@chakra-ui/react";
 import { useState } from "react";
 import dogCliente from "../../assets/cliente.svg";
 import { CardDogs } from "../../components/cardDogs";
@@ -59,6 +59,13 @@ export const MainClientes = ({ cliente }: any) => {
         padding={["0 15px"]}
         position={"relative"}
       >
+        <Heading
+          pos={"absolute"}
+          top={["-20px"]}
+          bgColor={"rgb(239, 140, 158)"}
+        >
+          Cachorros
+        </Heading>
         {dogssLength > 0 ? (
           <>
             <Flex position={"absolute"} left={"-17px"} zIndex="10">
@@ -96,6 +103,13 @@ export const MainClientes = ({ cliente }: any) => {
         position={"relative"}
         marginTop="20px"
       >
+        <Heading
+          pos={"absolute"}
+          top={["-20px"]}
+          bgColor={"rgb(239, 140, 158)"}
+        >
+          Gatos
+        </Heading>
         {catsLength > 0 ? (
           <>
             <Flex position={"absolute"} left={"-17px"} zIndex="10">

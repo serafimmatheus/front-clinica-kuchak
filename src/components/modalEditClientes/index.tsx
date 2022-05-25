@@ -20,8 +20,6 @@ import { FiMail } from "react-icons/fi";
 import { BiIdCard } from "react-icons/bi";
 
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { UseLogin } from "../../hook/login";
 import { UseDashboard } from "../../hook/dashboard";
@@ -134,11 +132,10 @@ export const ModalEditeCliente = ({ isOpen, onClose, cliente }: PropsModal) => {
                 value={value}
                 {...register("is_whatsapp")}
                 onChange={setValue}
-                // defaultValue={cliente.is_whatsapp}
               >
                 <Stack direction="row">
-                  <Radio value="True">Sim</Radio>
-                  <Radio value="False">Não</Radio>
+                  <Radio value="true">Sim</Radio>
+                  <Radio value="false">Não</Radio>
                 </Stack>
               </RadioGroup>
             </Flex>

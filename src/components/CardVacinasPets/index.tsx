@@ -6,7 +6,6 @@ import { useHistory, useParams } from "react-router-dom";
 import { UseDashboard } from "../../hook/dashboard";
 import { UseLogin } from "../../hook/login";
 import { ModalAddVacinas } from "../modalAddVacinas";
-import { ModalEditVacinas } from "../modalEditVacinas";
 import { InputVacinas } from "./input";
 import { Vacians } from "./vacinas";
 
@@ -47,7 +46,11 @@ export const CardVacinasPets = () => {
           <Flex pos={"absolute"} left={"-100px"} top={"10px"}>
             <BsArrowLeftSquare size={"20px"} onClick={() => history.goBack()} />
           </Flex>
-          <BiAddToQueue onClick={onOpen} />
+
+          <Flex pos={"absolute"} right={"-100px"} top={"10px"}>
+            <BiAddToQueue onClick={onOpen} size={"20px"} />
+          </Flex>
+
           <Heading>Vacinas</Heading>
         </Flex>
         <InputVacinas petsVacinas={petsVacinas} />

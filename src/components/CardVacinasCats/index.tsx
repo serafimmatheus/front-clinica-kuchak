@@ -46,7 +46,11 @@ export const CardVacinasCats = () => {
           <Flex pos={"absolute"} left={"-100px"} top={"10px"}>
             <BsArrowLeftSquare size={"20px"} onClick={() => history.goBack()} />
           </Flex>
-          <BiAddToQueue onClick={onOpen} />
+
+          <Flex pos={"absolute"} right={"-100px"} top={"10px"}>
+            <BiAddToQueue onClick={onOpen} size={"20px"} />
+          </Flex>
+
           <Heading>Vacinas</Heading>
         </Flex>
         <InputVacinasCats catsVacinas={catsVacinas} />

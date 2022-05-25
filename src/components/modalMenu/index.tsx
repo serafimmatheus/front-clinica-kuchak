@@ -3,9 +3,7 @@ import {
   Flex,
   Modal,
   ModalContent,
-  ModalHeader,
   ModalOverlay,
-  ScaleFade,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";

@@ -1,4 +1,4 @@
-import { Flex, Heading, Image, useDisclosure } from "@chakra-ui/react";
+import { Flex, Heading, useDisclosure } from "@chakra-ui/react";
 import { UseLogin } from "../../hook/login";
 import { FcSearch } from "react-icons/fc";
 import { FaBars } from "react-icons/fa";
@@ -18,15 +18,8 @@ export const Header = () => {
         bgColor={["#9F3548"]}
         justifyContent={["space-around"]}
         alignItems={["center"]}
-        // padding={["10px 0"]}
       >
         <Flex w={"50%"}>
-          {/* <Image
-            borderRadius={"50%"}
-            webkit-border-radius={"50%"}
-            src={data.user.img_url}
-          /> */}
-
           <Heading
             w={"100%"}
             color={["#f4f4f4"]}

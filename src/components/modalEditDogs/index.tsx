@@ -26,6 +26,7 @@ import { useState } from "react";
 import { UseLogin } from "../../hook/login";
 import { UseDashboard } from "../../hook/dashboard";
 import { useParams } from "react-router-dom";
+import { functionDataFormated } from "../../utils";
 
 interface PropsModal {
   isOpen: boolean;
@@ -113,6 +114,7 @@ export const ModalEditDogs = ({ isOpen, onClose, dogs }: PropsModal) => {
 
             <Flex>
               <Input
+                defaultValue={functionDataFormated(dogs.data_nascimento)}
                 type={"date"}
                 label="Aniversário"
                 icon={BiIdCard}

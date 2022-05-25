@@ -15,28 +15,31 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { Input } from "../form/input";
-
-import { FaDog, FaPhoneAlt, FaLocationArrow } from "react-icons/fa";
 import { GiDogBowl } from "react-icons/gi";
-import { FiMail } from "react-icons/fi";
-import { BiIdCard } from "react-icons/bi";
-
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { UseLogin } from "../../hook/login";
 import { UseDashboard } from "../../hook/dashboard";
+import { functionDataFormated } from "../../utils";
 
 interface PropsModal {
   isOpen: boolean;
   onClose: () => void;
   pet: any;
   dog?: boolean;
+  idPet: number;
 }
 
-export const ModalEditVacinas = ({ isOpen, onClose, pet, dog }: PropsModal) => {
-  const [value, setValue] = useState("true");
+export const ModalEditVacinas = ({
+  isOpen,
+  onClose,
+  pet,
+  dog,
+  idPet,
+}: PropsModal) => {
+  const [value, setValue] = useState("false");
 
   const { data: user_id } = UseLogin();
   const { updateVacinas, handleVacinaByIdPet, handleVacinaByIdCat } =
@@ -52,6 +55,7 @@ export const ModalEditVacinas = ({ isOpen, onClose, pet, dog }: PropsModal) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -63,10 +67,11 @@ export const ModalEditVacinas = ({ isOpen, onClose, pet, dog }: PropsModal) => {
         setLogin(false);
         onClose();
         if (dog) {
-          handleVacinaByIdPet(pet.id, user_id.token);
+          handleVacinaByIdPet(idPet, user_id.token);
         } else {
-          handleVacinaByIdCat(pet.id, user_id.token);
+          handleVacinaByIdCat(idPet, user_id.token);
         }
+        reset();
       })
       .catch((_) => {
         setLogin(false);
@@ -97,17 +102,17 @@ export const ModalEditVacinas = ({ isOpen, onClose, pet, dog }: PropsModal) => {
             />
 
             <Input
+              defaultValue={functionDataFormated(pet.data_aplicacao)}
               type="date"
               label="Dia da Aplicação"
-              icon={FaDog}
               {...register("data_aplicacao")}
               p="10px"
               error={errors}
             />
             <Input
+              defaultValue={functionDataFormated(pet.data_revacinacao)}
               type={"date"}
               label="Dia da Revacinação"
-              icon={BiIdCard}
               {...register("data_revacinacao")}
               p="10px"
               error={errors}
@@ -134,7 +139,7 @@ export const ModalEditVacinas = ({ isOpen, onClose, pet, dog }: PropsModal) => {
                 value={value}
                 {...register("is_pupies")}
                 onChange={setValue}
-                defaultValue={pet.is_pupies}
+                defaultValue={pet.is_pupies ? "true" : "false"}
               >
                 <Stack direction="row">
                   <Radio value="true">Sim</Radio>

@@ -1,11 +1,7 @@
-import { Flex, Heading, Image, useDisclosure } from "@chakra-ui/react";
+import { Flex, Heading, useDisclosure } from "@chakra-ui/react";
 import { UseLogin } from "../../hook/login";
-import { FcSearch } from "react-icons/fc";
-import { FaBars, FaCat, FaDog } from "react-icons/fa";
-import { ModalMenu } from "../modalMenu";
+import { FaBars } from "react-icons/fa";
 import { ModalBackMenu } from "../modalBackMenu";
-import { ModalAddDogs } from "../modalAddDogs";
-import { ModalAddCats } from "../modalAddCats";
 
 interface DogsProps {
   id: number;
@@ -38,9 +34,7 @@ interface ClientesProps {
   cats: CatsProps[];
 }
 
-export const HeaderPets = () => {
-  const { data } = UseLogin();
-
+export const HeaderPets = ({ namePet }: any) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
@@ -60,7 +54,7 @@ export const HeaderPets = () => {
             marginLeft={["10px"]}
             fontSize={["16px"]}
           >
-            Pets
+            {namePet.nome}
           </Heading>
         </Flex>
 

@@ -13,13 +13,11 @@ import {
   Radio,
   Heading,
   Textarea,
-  color,
 } from "@chakra-ui/react";
 import { Input } from "../form/input";
 
-import { FaDog, FaPhoneAlt, FaLocationArrow } from "react-icons/fa";
+import { FaDog } from "react-icons/fa";
 import { GiDogBowl } from "react-icons/gi";
-import { FiMail } from "react-icons/fi";
 import { BiIdCard } from "react-icons/bi";
 
 import { useForm } from "react-hook-form";
